@@ -1,0 +1,51 @@
+<script id="header_template" type="text/x-handlebars-template">
+  <h1 class="title">Send coins</h1>
+</script>
+
+<script id="content_template" type="text/x-handlebars-template">
+  <div class="content-padded">
+    <div class="text-block">
+      Lorem ipsum dolor sit amet. Select coin:
+    </div>
+
+    <div class="coins-holder">
+      <div class="coin-holder left">
+        <div class="coin silver">
+          Thanks
+        </div>
+        10
+      </div>
+
+      <div class="coin-holder right">
+        <div class="coin gold">
+          BIG THANKS
+        </div>
+        5
+      </div>
+    </div>
+    <br style="clear:both;" />
+
+    <div class="text-block no-coins">
+      You dont have free coins, but you will recieve one for free tommorow. Or you can simply <a href="#buy">buy</a> them.
+    </div>
+  </div>
+</script>
+
+<script type="text/javascript">
+  $('.tab-item[page=send]').addClass('active');
+
+  $(document).one('pageLoad', function(event) {
+    Backend.GetRequest('/my/balance').done(function (data, a) {
+      console.log(data);
+      event.renderer({balance:data.result});
+    });
+  });
+
+  $(document).one('pageRender', function() {
+    $('.coin-holder').tap(function() {
+      var type = $(this).find('.coin').hasClass('silver') ? 0 : 1;
+
+      Navigation.redirectToPage('send_select_recipient:coin_type=' + type);
+    });
+  });
+</script>

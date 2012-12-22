@@ -1,0 +1,30 @@
+<script id="header_template" type="text/x-handlebars-template">
+  <a class="button-prev">Back</a>
+  <h1 class="title">Send coins</h1>
+</script>
+
+<script id="content_template" type="text/x-handlebars-template">
+  <ul class="list">
+    <li class="list-divider">Facebook friends</li>
+    {{#users}}
+    <li>
+      {{name}}
+      <span class="chevron" uid="{{uid}}"></span>
+    </li>
+    {{/users}}
+  </ul>
+</script>
+
+<script type="text/javascript">
+  $(document).one('pageLoad', function(event) {
+    Backend.GetRequest('/social/facebook_friends').done(function (data, a) {
+      event.renderer({users:data.result});
+    });
+  });
+
+  $(document).one('pageRender', function() {
+    $('.chevron').tap(function() {
+      Navigation.redirectToPage('send_select_message:coin_type=' + Navigation.getParam('coin_type') + '&uid=' + $(this).attr('uid'));
+    });
+  });
+</script>

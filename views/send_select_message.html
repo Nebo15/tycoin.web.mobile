@@ -1,0 +1,38 @@
+<script id="header_template" type="text/x-handlebars-template">
+  <a class="button-prev">Back</a>
+  <h1 class="title">Send coins</h1>
+  <a class="button-next">Send</a>
+</script>
+
+<script id="content_template" type="text/x-handlebars-template">
+  <div class="content-padded">
+    <div class="user-title">
+      <div class="user-thumb">
+        <img src="{{#if image_150}}{{image_150}}{{else}}views/images/no_image_115x115.png{{/if}}" width="115" height="115"/>
+      </div>
+      <h1>{{name}}</h1>
+    </div>
+
+    <textarea id="message" placeholder="Moment description...">Thank you for your help, lorem ipsum dolor sit amet...</textarea>
+  </div>
+</script>
+
+<script type="text/javascript">
+  $(document).one('pageLoad', function(event) {
+    Backend.GetRequest('/social/facebook_friends').done(function (data, a) {
+      var user;
+      $.each(data.result, function(index, value) {
+        if(value.uid == Navigation.getParam('uid')) {
+          user = value;
+        }
+      });
+      event.renderer(user);
+    });
+  });
+
+  $(document).one('pageRender', function() {
+    $('.chevron').tap(function() {
+      Navigation.redirectToPage('send_select_message:coin_type=' + Navigation.getParam('coin_type') + '&uid=' + $(this).attr('uid'));
+    });
+  });
+</script>

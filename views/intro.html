@@ -1,0 +1,18 @@
+<script id="header_template" type="text/x-handlebars-template">
+  <h1 class="title">TYCoin</h1>
+</script>
+
+<script id="content_template" type="text/x-handlebars-template">
+  <div class="content-padded">
+    <div class="text-block">
+      Marketing description here.
+    </div>
+  </div>
+</script>
+
+<script type="text/javascript">
+  $(document).one('pageLoad', function(event) {
+    Storage.set('skip_intro', true);
+    event.renderer();
+  });
+</script>

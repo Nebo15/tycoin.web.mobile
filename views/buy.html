@@ -1,0 +1,19 @@
+<script id="header_template" type="text/x-handlebars-template">
+  <h1 class="title">Buy coins</h1>
+</script>
+
+<script id="content_template" type="text/x-handlebars-template">
+  <div class="content-padded">
+    <div class="text-block">
+      List of prices.
+    </div>
+  </div>
+</script>
+
+<script type="text/javascript">
+  $('.tab-item[page=send]').addClass('active');
+
+  $(document).one('pageLoad', function(event) {
+    event.renderer();
+  });
+</script>
