@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Tale Of The Day</title>
+
+    <!-- Sets initial viewport load and disables zooming  -->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <!-- Set a shorter title for iOS6 devices when saved to home screen -->
+    <meta name="apple-mobile-web-app-title" content="TOTD">
+
+    <!-- Set Apple icons for when prototype is saved to home screen -->
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="views/images/icons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="views/images/icons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="views/images/icons/apple-touch-icon-57x57.png">
+
+    <!-- Include CSS files -->
+    <link rel="stylesheet" href="views/styles/ratchet.css">
+    <link rel="stylesheet" href="views/styles/font-awesome.css">
+    <link rel="stylesheet" href="views/styles/application.css">
+
+    <!-- Include the compiled verndors JS -->
+    <script src="cordova-2.2.0.js"></script>
+    <script src="lib/vendor/ratchet.js"></script>
+    <script src="lib/vendor/jquery-1.8.2.min.js"></script>
+    <script src="lib/vendor/handlebars-1.0.rc.1.js"></script>
+
+    <!-- Include other JS files -->
+    <script src="lib/main.js"></script>
+    <script src="lib/auth.js"></script>
+    <script src="lib/loader.js"></script>
+    <script src="lib/page.js"></script>
+    <script src="lib/backend.js"></script>
+    <script src="lib/tools.js"></script>
+    <script src="lib/storage.js"></script>
+    <script src="lib/touch.js"></script>
+    <script src="lib/navigation.js"></script>
+    <script src="lib/override.js"></script>
+
+    <!-- Bind navigation -->
+    <script type="text/javascript">
+      console.log('index.html loaded!'); // Debug, if page reloads - its bad!
+      $(window).load(Navigation.init);
+    </script>
+  </head>
+  <body>
+    <header class="bar-title"></header>
+
+    <div class="content"></div>
+
+    <!-- Here we will store temporary templates code -->
+    <script id="template_holder"></script>
+
+    <!-- Preloader image to dont let users get boored -->
+    <div class="preloader">
+      <img src="views/images/ajax_loader.gif" width="32" height="32" />
+      <p class="text-block">Initializing application...</p>
+    </div>
+
+    <nav class="bar-tab">
+      <ul class="tab-inner">
+        <li class="tab-item active" page="days_interesting">
+          <i class="tab-icon icon-globe icon-large"></i>
+          <div class="tab-label">Explore</div>
+        </li>
+        <li class="tab-item" page="days_live">
+          <i class="tab-icon icon-group icon-large"></i>
+          <div class="tab-label">Live</div>
+        </li>
+        <li class="tab-item" page="day_create">
+          <i class="tab-icon icon-camera-retro icon-large"></i>
+          <div class="tab-label">Shoot</div>
+        </li>
+        <li class="tab-item" page="news">
+          <i class="tab-icon icon-pushpin icon-large"></i>
+          <div class="tab-label">News</div>
+        </li>
+        <li class="tab-item" page="profile">
+          <i class="tab-icon icon-user icon-large"></i>
+          <div class="tab-label">Profile</div>
+        </li>
+      </ul>
+    </nav>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<script id="header_template" type="text/x-handlebars-template">
+  <a class="button" href="#profile_edit">Edit</a>
+  <h1 class="title">Profile</h1>
+  <a class="button" href="#settings">Settings</a>
+</script>
+
+<script id="content_template" type="text/x-handlebars-template">
+  <div class="content-padded">
+    <div class="user-title">
+      <div class="user-thumb">
+          <img src="{{image_96}}" width="96" />
+      </div>
+      <h1>{{name}}</h1>
+      <small>{{occupation}}{{#location}} from {{location}}{{/location}}</small>
+    </div>
+    <br style="clear: both;" />
+
+    <ul class="list">
+      <li class="list-divider">Days</li>
+      <li>
+        {{#if-eq days_count "0"}}
+          My days <span class="count">{{days_count}}</span>
+        {{else}}
+          <a href="#days_my">My days <span class="chevron"></span><span class="count-main">{{days_count}}</span></a>
+        {{/if-eq}}
+      </li>
+      <li>
+        {{#if-eq favorites_count "0"}}
+          Favourite days <span class="count">{{favorites_count}}</span>
+        {{else}}
+          <a href="#days_favourite">Favourite days <span class="chevron"></span><span class="count-main">{{favorites_count}}</span></a>
+        {{/if-eq}}
+      </li>
+      <li class="list-divider">Users</li>
+      <li>
+        {{#if-eq followers_count "0"}}
+          My followers <span class="count">{{followers_count}}</span>
+        {{else}}
+          <a href="#my_followers">My followers <span class="chevron"></span><span class="count-main">{{followers_count}}</span></a>
+        {{/if-eq}}
+      </li>
+      <li>
+        {{#if-eq following_count "0"}}
+        I&apos;m Following <span class="count">{{following_count}}</span>
+        {{else}}
+          <a href="#my_following">I&apos;m Following <span class="chevron"></span><span class="count-main">{{following_count}}</span></a>
+        {{/if-eq}}
+      </li>
+      <li>
+        <a href="#users_search">
+          Find and invite people
+          <span class="chevron"></span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</script>
+
+<script type="text/javascript">
+  $(document).one('pageLoad', function(event) {
+    Backend.GetRequest('/my/profile').done(function (data, a) {
+      event.renderer(data.result);
+    });
+  });
+</script>

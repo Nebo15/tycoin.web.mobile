@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns     = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "com.onedayofmine.html5"
+        version   = "0.0.2">
+    <name>TYCoin</name>
+
+    <description>
+        HTML5 prototype for iOS native application.
+    </description>
+
+    <author href="http://phonegap.com" email="support@onedayofmine.com">
+        One Day of Mine Team
+    </author>
+
+    <feature name="http://api.phonegap.com/1.0/device" />
+
+    <preference name="phonegap-version" value="2.2.0" />
+    <preference name="orientation"      value="portrait" />
+    <preference name="target-device"    value="universal" />
+    <preference name="fullscreen"       value="false" />
+    <preference name="detect-data-types" value="false" />
+    <preference name="show-splash-screen-spinner" value="false" />
+
+    <access origin="*" />
+</widget>

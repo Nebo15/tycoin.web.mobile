@@ -1,0 +1,152 @@
+<script id="header_template" type="text/x-handlebars-template">
+  <a class="button-prev">Back</a>
+  <h1 class="title">Settings</h1>
+  <a class="button">Logout</a>
+</script>
+
+<script id="content_template" type="text/x-handlebars-template">
+  <ul class="list">
+    <li class="list-divider">Notificate about</li>
+    <li>
+      New days
+      <p>
+        <small>from people i know</small>
+      </p>
+      <div class="toggle{{#if-eq notifications_new_days "1"}} active{{/if-eq}}" name="notifications_new_days">
+        <div class="toggle-handle"><i class="notifications_new_days-icon"></i></div>
+      </div>
+    </li>
+    <li>
+      New comments
+      <p>
+        <small>in my days</small>
+      </p>
+      <div class="toggle{{#if-eq notifications_new_comments "1"}} active{{/if-eq}}" name="notifications_new_comments">
+        <div class="toggle-handle"><i class="notifications_new_comments-icon"></i></div>
+      </div>
+    </li>
+    <li>
+      New replies
+      <p>
+        <small>for my comments</small>
+      </p>
+      <div class="toggle{{#if-eq notifications_new_replies "1"}} active{{/if-eq}}" name="notifications_new_replies">
+        <div class="toggle-handle"><i class="notifications_new_replies-icon"></i></div>
+      </div>
+    </li>
+    <li>
+      Related activity
+      <p>
+        <small>Followers, favourites, likes and shares</small>
+      </p>
+      <div class="toggle{{#if-eq notifications_related_activity "1"}} active{{/if-eq}}" name="notifications_related_activity">
+         <div class="toggle-handle"><i class="notifications_related_activity-icon"></i></div>
+      </div>
+    </li>
+    <li>
+      Shooting photos
+      <p>
+        <small>for today opened day</small>
+      </p>
+      <div class="toggle{{#if-eq notifications_shooting_photos "1"}} active{{/if-eq}}" name="notifications_shooting_photos">
+        <div class="toggle-handle"><i class="notifications_shooting_photos-icon"></i></div>
+      </div>
+    </li>
+    <li class="list-divider">Photos</li>
+    <li>
+      Save filtered photos
+      <div class="toggle{{#if-eq photos_save_filtered "1"}} active{{/if-eq}}" name="photos_save_filtered">
+         <div class="toggle-handle"><i class="photos_save_filtered-icon"></i></div>
+      </div>
+    </li>
+    <li>
+      Save original photos
+      <div class="toggle{{#if-eq photos_save_original "1"}} active{{/if-eq}}" name="photos_save_original">
+        <div class="toggle-handle"><i class="photos_save_original-icon"></i></div>
+      </div>
+    </li>
+    <li class="list-divider">Social</li>
+    <li>
+      Share to Facebook
+      <p>
+        <small>likes, all actions with days and moments</small>
+      </p>
+      <div class="toggle{{#if-eq social_share_facebook "1"}} active{{/if-eq}}" name="social_share_facebook">
+         <div class="toggle-handle"><i class="social_share_facebook-icon"></i></div>
+      </div>
+    </li>
+    <li>
+      Share to Twitter
+      <p>
+        <small>actions with days and moments</small>
+      </p>
+      {{#if-eq social_twitter_connected "1"}}
+        <div class="toggle{{#if-eq social_share_twitter "1"}} active{{/if-eq}}" name="social_share_twitter">
+          <div class="toggle-handle"><i class="social_share_twitter-icon"></i></div>
+        </div>
+      {{else}}
+        <a class="button">Connect</a>
+      {{/if-eq}}
+    </li>
+    <li class="list-divider">Feedback</li>
+    <li>
+      <a>
+        Email us <span class="chevron"></span>
+      </a>
+    </li>
+    <li>
+      <a>
+        Write AppStore review <span class="chevron"></span>
+      </a>
+    </li>
+  </ul>
+</script>
+
+<script type="text/javascript">
+  $(document).one('pageLoad', function(event) {
+    Backend.GetRequest('/my/settings').done(function (data) {
+      Storage.set('settings', data.result);
+      event.renderer(data.result);
+    });
+  });
+
+  $(document).one('pageRender', function() {
+    $("a.button:contains(Logout)").tap(Backend.Logout);
+
+    $('.toggle').bind('toggle', function() {
+      var toggle      = $(this);
+      var name        = toggle.attr('name');
+      var value       = toggle.hasClass('active') ? 1 : 0;
+      var data        = {};
+      data[name]      = value;
+      var status_icon = $('.' + name + '-icon');
+
+      var settings = Storage.get('settings');
+      if(settings && value == settings[name]) {
+        return; // Toggle didnt changed value
+      }
+
+      var setIcon = function(name) {
+        status_icon.removeClass('icon-refresh icon-ok icon-warning-sign');
+        status_icon.addClass(name);
+      };
+
+      setIcon('icon-refresh');
+
+      var response = Backend.PostRequest('/my/settings', data);
+      response.done(function(ajax) {
+        if(ajax.code == 200 && ajax.result[name] == value) {
+          setIcon('icon-ok');
+        } else {
+          setIcon('icon-warning-sign');
+          Tools.resetToggle(toggle, ajax.result[name] == 1 ? true : false)
+        }
+        Storage.set('settings', ajax.result);
+      });
+
+      response.fail(function() {
+        setIcon('icon-warning-sign');
+      });
+    });
+  });
+</script>

@@ -1,0 +1,13 @@
+.idea
+*~*
+*.orig
+*conflicted*
+.buildpath
+.project
+.settings
+.DS_Store
+*.sublime*
+.tags
+.tags_sorted_by_file
+nbproject
+lib/override.js
