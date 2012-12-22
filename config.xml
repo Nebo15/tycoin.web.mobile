@@ -21,6 +21,8 @@
     <preference name="fullscreen"       value="false" />
     <preference name="detect-data-types" value="false" />
     <preference name="show-splash-screen-spinner" value="false" />
+    <preference name="webviewbounce" value="false" />
+    <preference name="detect-data-types" value="false" />
 
     <access origin="*" />
 </widget>
