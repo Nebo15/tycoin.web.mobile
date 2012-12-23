@@ -10,24 +10,22 @@
 
     <div class="coins-holder">
       <div class="coin-holder left">
-        <div class="coin silver">
-          Thanks
-        </div>
-        10
+        <img src="views/images/silver-coin.jpg" class="coin silver" />
+        {{balance.coins.usual_count}}
       </div>
 
       <div class="coin-holder right">
-        <div class="coin gold">
-          BIG THANKS
-        </div>
-        5
+        <img src="views/images/gold-coin.jpg" "coin gold" />
+        {{balance.coins.big_count}}
       </div>
     </div>
     <br style="clear:both;" />
 
-    <div class="text-block no-coins">
-      You dont have free coins, but you will recieve one for free tommorow. Or you can simply <a href="#buy">buy</a> them.
-    </div>
+    {{#if-eq balance.free_coin.available "true"}}
+      <div class="text-block no-coins">
+        You dont have free coins, but you will recieve one for free tommorow. Or you can simply <a href="#buy">buy</a> them.
+      </div>
+    {{/if-eq}}
   </div>
 </script>
 

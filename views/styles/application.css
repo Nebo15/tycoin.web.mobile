@@ -47,12 +47,11 @@ li {
   text-align: center;
 }
 
-.coin {
-  border-radius: 50%;
+.coin-holder img {
   width: 100px;
-  height: 60px;
-  border: 1px solid #000;
-  padding-top: 40px;
+  height: 100px;
+  text-align: center;
+  display: block;
 }
 
 .left {
@@ -63,14 +62,6 @@ li {
 .right {
   float: right;
   padding-right: 15px;
-}
-
-.gold {
-  background-image: -webkit-radial-gradient(45px 45px, circle cover, yellow, orange);
-}
-
-.silver {
-  background-image: -webkit-radial-gradient(45px 45px, circle cover, #F0F0F0, #C0C0C0);
 }
 
 .no-coins {
