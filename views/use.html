@@ -4,10 +4,10 @@
 
 <script id="content_template" type="text/x-handlebars-template">
   <ul class="list">
+    <li class="list-divider">Get...</li>
     {{#partners}}
     <li partner_id="{{id}}">
-      {{description}} <br />
-      <small>Needed: <img src="views/images/silver-coin.jpg" width="20" /> x{{coins}} </small>
+      <img src="{{image}}" width="40" /> {{good}} for {{coins}}<img src="views/images/silver-coin.jpg" width="20" style="position:relative; top:5px;" />
       <span class="chevron"></span>
     </li>
     {{/partners}}
