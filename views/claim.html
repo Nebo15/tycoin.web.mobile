@@ -1,5 +1,6 @@
 <script id="header_template" type="text/x-handlebars-template">
   <h1 class="title">Claim coins</h1>
+  <a class="button">Logout</a>
 </script>
 
 <script id="content_template" type="text/x-handlebars-template">
@@ -21,5 +22,9 @@
       console.log(data);
       event.renderer({history:data.result});
     });
+  });
+
+  $(document).one('pageRender', function() {
+    $("a.button:contains(Logout)").tap(Backend.Logout);
   });
 </script>
