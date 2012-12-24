@@ -37,7 +37,7 @@
       };
 
       Loader.show('Sending coins');
-      Backend.PostRequest('/transactions/transfer', data).done(function(ajax) {
+      Backend.PostRequest('/transaction/transfer', data).done(function(ajax) {
         if(ajax.code == 200) {
           Navigation.redirectToPage('send_status');
         } else {
