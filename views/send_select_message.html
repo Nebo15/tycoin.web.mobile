@@ -6,13 +6,11 @@
 
 <script id="content_template" type="text/x-handlebars-template">
   <div class="content-padded">
-    <div class="user-title">
-      <div class="user-thumb">
-        <img src="{{#if image_150}}{{image_150}}{{else}}views/images/no_image_115x115.png{{/if}}" width="115" height="115" />
-      </div>
-      <h1>{{name}}</h1>
-    </div>
+    <img style="float:left;" src="{{#if image_150}}{{image_150}}{{else}}views/images/no_image_115x115.png{{/if}}" width="50" />
+    <h1 style="margin-left:10px;">&nbsp;&nbsp;{{name}}</h1>
+    <br style="clear:both;" />
 
+    Enter message:
     <textarea id="message" placeholder="Moment description...">Thank you for your help, lorem ipsum dolor sit amet...</textarea>
   </div>
 </script>
@@ -31,8 +29,21 @@
   });
 
   $(document).one('pageRender', function() {
-    $('.chevron').tap(function() {
-      Navigation.redirectToPage('send_select_message:coin_type=' + Navigation.getParam('coin_type') + '&uid=' + $(this).attr('uid'));
+    $('.button-next').tap(function() {
+      var data = {
+        'uid': Navigation.getParam('uid'),
+        'type': Navigation.getParam('coin_type') == 1 ? "big" : "usual",
+        'message': $('#message').text()
+      };
+
+      Loader.show('Sending coins');
+      Backend.PostRequest('/transactions/transfer', data).done(function(ajax) {
+        if(ajax.code == 200) {
+          Navigation.redirectToPage('send_status');
+        } else {
+          Loader.setStatus(ajax.errors[0]);
+        }
+      });
     });
   });
 </script>

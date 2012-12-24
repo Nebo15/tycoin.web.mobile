@@ -7,9 +7,9 @@
   <ul class="list">
     <li class="list-divider">Facebook friends</li>
     {{#users}}
-    <li>
+    <li uid="{{uid}}">
       {{name}}
-      <span class="chevron" uid="{{uid}}"></span>
+      <span class="chevron"></span>
     </li>
     {{/users}}
   </ul>
@@ -23,7 +23,7 @@
   });
 
   $(document).one('pageRender', function() {
-    $('.chevron').tap(function() {
+    $('li[uid]').tap(function() {
       Navigation.redirectToPage('send_select_message:coin_type=' + Navigation.getParam('coin_type') + '&uid=' + $(this).attr('uid'));
     });
   });
