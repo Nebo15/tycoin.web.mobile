@@ -34,7 +34,6 @@
 
   $(document).one('pageLoad', function(event) {
     Backend.GetRequest('/my/balance').done(function (data, a) {
-      console.log(data);
       event.renderer({balance:data.result});
     });
   });
