@@ -1,0 +1,32 @@
+<script id="header_template" type="text/x-handlebars-template">
+  <a class="button-prev">Back</a>
+  <h1 class="title">Deals</h1>
+  <a class="button-next">Send coins</a>
+</script>
+
+<script id="content_template" type="text/x-handlebars-template">
+  <div class="content-padded">
+    <img style="float:left; padding-right:10px;" src="{{image}}" width="100" />
+    <h2 style="margin-left:10px;">{{shop.title}}</h2>
+    <small>{{shop.location}}</small> <br />
+    <small>Needed: <img src="views/images/silver-coin.jpg" width="20" /> x{{coins}} </small>
+    <br style="clear:both;" />
+    <br />
+
+    {{description}}
+  </div>
+</script>
+
+<script type="text/javascript">
+  $(document).one('pageLoad', function(event) {
+    Backend.GetRequest('/partners/'+Navigation.getParam('partner_id')).done(function (data, a) {
+      event.renderer(data.result);
+    });
+  });
+
+  $(document).one('pageRender', function() {
+    $('.button-next').tap(function() {
+      alert("Soon you will be able to use your coins");
+    });
+  });
+</script>

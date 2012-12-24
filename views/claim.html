@@ -3,11 +3,14 @@
 </script>
 
 <script id="content_template" type="text/x-handlebars-template">
-  <div class="content-padded">
-    <div class="text-block">
-      History.
-    </div>
-  </div>
+  <ul class="list">
+    {{#history}}
+    <li>
+      {{name}}
+      <span class="chevron"></span>
+    </li>
+    {{/history}}
+  </ul>
 </script>
 
 <script type="text/javascript">
