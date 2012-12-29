@@ -17,14 +17,19 @@
 
 <script type="text/javascript">
   $(document).one('pageLoad', function(event) {
-    Backend.GetRequest('/partners/'+Navigation.getParam('partner_id')).done(function (data, a) {
+    Backend.GetRequest('/partners/'+Navigation.getParam('deal_id')).done(function (data, a) {
       event.renderer(data.result);
     });
   });
 
   $(document).one('pageRender', function() {
     $('.button-next').tap(function() {
-      alert("Soon you will be able to use your coins");
+        Backend.PostRequest('/partners/'+Navigation.getParam('deal_id')+'/buy').done(function (data, a) {
+            if (confirm("Are you sure?")) {
+                console.log(data);
+                event.renderer(data.result);
+            }
+        });
     });
   });
 </script>

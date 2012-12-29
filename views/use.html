@@ -6,7 +6,7 @@
   <ul class="list">
     <li class="list-divider">Get...</li>
     {{#partners}}
-    <li partner_id="{{id}}">
+    <li deal_id="{{id}}">
       <img src="{{image}}" width="40" /> {{good}} for {{coins}}<img src="views/images/silver-coin.jpg" width="20" style="position:relative; top:5px;" />
       <span class="chevron"></span>
     </li>
@@ -24,8 +24,8 @@
   });
 
   $(document).one('pageRender', function() {
-    $('li[partner_id]').tap(function() {
-      Navigation.redirectToPage('use_deal:partner_id=' + $(this).attr('partner_id'));
+    $('li[deal_id]').tap(function() {
+      Navigation.redirectToPage('use_deal:deal_id=' + $(this).attr('deal_id'));
     });
   });
 </script>
