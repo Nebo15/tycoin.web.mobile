@@ -1,7 +1,7 @@
 <script id="header_template" type="text/x-handlebars-template">
   <a class="button-prev">Back</a>
   <h1 class="title">Send coins</h1>
-  <a class="button-next">Send</a>
+  <a class="button">Confirm</a>
 </script>
 
 <script id="content_template" type="text/x-handlebars-template">
@@ -33,7 +33,7 @@
   });
 
   $(document).one('pageRender', function() {
-    $('.button-next').tap(function() {
+    $('a.button:contains(Confirm)').tap(function() {
       var data = {
         'uid': Page.getParam('uid'),
         'type': Page.getParam('coin_type') == 1 ? "big" : "usual",
