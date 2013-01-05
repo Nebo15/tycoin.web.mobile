@@ -52,7 +52,8 @@
       // Init Navigaion
       $(window).load(Navigation.onLoad);
 
-      getBalance(function() {});
+      if(Navigation.getLocation() != 'give')
+        getBalance(function() {});
 
       $(document).bind('pageRender', function() {
         $("#config-button").tap(function() {
