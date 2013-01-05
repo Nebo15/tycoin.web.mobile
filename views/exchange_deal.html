@@ -30,12 +30,14 @@
 
   $(document).one('pageRender', function() {
     $('.button-next').tap(function() {
-      API.request('POST', '/partners/buy', {id: Page.getParam('deal_id')})
-        .success(function(response) {
-          console.log(response);
-          event.renderer(response.data.result);
-        })
-        .send();
+      if(confirm("Are you sure?")) {
+        API.request('POST', '/partners/buy', {id: Page.getParam('deal_id')})
+          .success(function(response) {
+            console.log(response);
+            event.renderer(response.data.result);
+          })
+          .send();
+      }
     });
   });
 </script>
