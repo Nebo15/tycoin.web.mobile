@@ -8,6 +8,7 @@
     <li class="list-divider">Facebook friends</li>
     {{#users}}
     <li uid="{{uid}}">
+      <img src="{{image_50}}" style="width: 40px; vertical-align: middle;"/>
       {{name}}
       <span class="chevron"></span>
     </li>
@@ -21,6 +22,7 @@
   $(document).one('pageLoadSuccess', function(event) {
     API.request('GET', '/social/facebook_friends')
       .success(function(response) {
+        console.log(response);
         event.renderer({users:response.data.result});
       })
       .send();
