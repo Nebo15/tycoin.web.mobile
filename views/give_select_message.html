@@ -16,34 +16,39 @@
 </script>
 
 <script type="text/javascript">
-  $(document).one('pageLoad', function(event) {
-    Backend.GetRequest('/social/facebook_friends').done(function (data, a) {
-      var user;
-      $.each(data.result, function(index, value) {
-        if(value.uid == Navigation.getParam('uid')) {
-          user = value;
-        }
-      });
-      event.renderer(user);
-    });
+  Navigation.setMenuActivePage('give');
+
+  $(document).one('pageLoadSuccess', function(event) {
+    API.request('GET', '/social/facebook_friends')
+      .success(function(response) {
+        var user;
+        $.each(response.data.result, function(index, value) {
+          if(value.uid == Page.getParam('uid')) {
+            user = value;
+          }
+        });
+        event.renderer(user);
+      })
+      .send();
   });
 
   $(document).one('pageRender', function() {
     $('.button-next').tap(function() {
       var data = {
-        'uid': Navigation.getParam('uid'),
-        'type': Navigation.getParam('coin_type') == 1 ? "big" : "usual",
+        'uid': Page.getParam('uid'),
+        'type': Page.getParam('coin_type') == 1 ? "big" : "usual",
         'message': $('#message').text()
       };
 
       Loader.show('Sending coins');
-      Backend.PostRequest('/transaction/transfer', data).done(function(ajax) {
-        if(ajax.code == 200) {
-          Navigation.redirectToPage('send_status');
-        } else {
-          Loader.setStatus(ajax.errors[0]);
-        }
-      });
+      API.request('POST', '/transaction/transfer')
+        .success(function(response) {
+          Loader.show('Coins sent');
+          setTimeout(function(){
+            Navigation.redirectToDefaultPage();
+          }, 2000);
+        })
+        .send();
     });
   });
 </script>

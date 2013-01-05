@@ -1,0 +1,35 @@
+<script id="header_template" type="text/x-handlebars-template">
+  <h1 class="title">Exchange "Thank you"</h1>
+  <a class="button" id="config-button"><i class="icon-cog"></i></a>
+</script>
+
+<script id="content_template" type="text/x-handlebars-template">
+  <ul class="list">
+    <li class="list-divider">Get...</li>
+    {{#partners}}
+    <li partner_id="{{id}}">
+      <img src="{{image}}" width="40" style="vertical-align: middle;" /> {{good}} for
+      {{coins_count}}<img src="views/images/{{coins_type}}-coin.jpg" width="20" style="vertical-align: middle;" />
+      <span class="chevron"></span>
+    </li>
+    {{/partners}}
+  </ul>
+</script>
+
+<script type="text/javascript">
+  Navigation.setMenuActivePage('exchange');
+
+  $(document).one('pageLoadSuccess', function(event) {
+    API.request('GET', '/partners/deals')
+      .success(function(response) {
+        event.renderer({partners:response.data.result});
+      })
+      .send();
+  });
+
+  $(document).one('pageRender', function() {
+    $('li[partner_id]').tap(function() {
+      Navigation.redirectToPage('exchange_deal:deal_id=' + $(this).attr('partner_id'));
+    });
+  });
+</script>

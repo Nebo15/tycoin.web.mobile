@@ -1,24 +1,25 @@
 <script id="header_template" type="text/x-handlebars-template">
-  <h1 class="title">Send coins</h1>
+  <h1 class="title">Give "Thank you"</h1>
+  <a class="button" id="config-button"><i class="icon-cog"></i></a>
 </script>
 
 <script id="content_template" type="text/x-handlebars-template">
   <div class="content-padded">
     <div class="text-block">
-      Give "Thank you". Select coin:
+      Select coin:
     </div>
 
     <div class="coins-holder">
       <div class="coin-holder">
-        <img src="views/images/silver-coin.jpg" class="coin silver" />
-        <!--<br/>
-        {{balance.purchased_coins_count}}-->
+        <img src="views/images/usual-coin.jpg" class="coin usual" />
+        <br/>
+        {{balance.purchased_coins_count}} + {{balance.free_coins_count}}
       </div>
 
       <div class="coin-holder">
-        <img src="views/images/gold-coin.jpg" class="coin gold" />
-        <!--<br/>
-        {{balance.purchased_big_coins_count}}-->
+        <img src="views/images/big-coin.jpg" class="coin big" />
+        <br/>
+        {{balance.purchased_big_coins_count}}
       </div>
     </div>
     <br style="clear:both;" />
@@ -32,19 +33,19 @@
 </script>
 
 <script type="text/javascript">
-  $('.tab-item[page=send]').addClass('active');
+  Navigation.setMenuActivePage('give');
 
-  $(document).one('pageLoad', function(event) {
-    Backend.GetRequest('/my/balance').done(function (data, a) {
-      event.renderer({balance:data.result});
-    });
+  $(document).one('pageLoadSuccess', function(event) {
+    getBalance(function(balance) {
+      event.renderer({balance:balance});
+    })
   });
 
   $(document).one('pageRender', function() {
     $('.coin-holder').tap(function() {
-      var type = $(this).find('.coin').hasClass('silver') ? 0 : 1;
+      var type = $(this).find('.coin').hasClass('usual') ? 0 : 1;
 
-      Navigation.redirectToPage('send_select_recipient:coin_type=' + type);
+      Navigation.redirectToPage('give_select_recipient:coin_type=' + type);
     });
   });
 </script>

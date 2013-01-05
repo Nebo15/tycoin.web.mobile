@@ -1,0 +1,41 @@
+<script id="header_template" type="text/x-handlebars-template">
+  <a class="button-prev">Back</a>
+  <h1 class="title">Exchange</h1>
+  <a class="button-next">Exchange</a>
+</script>
+
+<script id="content_template" type="text/x-handlebars-template">
+  <div class="content-padded">
+    <img style="float:left; padding-right:10px;" src="{{image}}" width="100" />
+    <h2 style="margin-left:10px;">{{shop.title}}</h2>
+    <small>{{shop.location}}</small> <br />
+    <br style="clear:both;" />
+    <br />
+    Here you can exchange {{coins_count}}
+    <img src="views/images/{{coins_type}}-coin.jpg" width="20" style="vertical-align: middle;" />
+    on {{good}}. {{description}}
+  </div>
+</script>
+
+<script type="text/javascript">
+  Navigation.setMenuActivePage('exchange');
+
+  $(document).one('pageLoadSuccess', function(event) {
+    API.request('GET', '/partners/' + Page.getParam('deal_id'))
+      .success(function(response) {
+        event.renderer(response.data.result);
+      })
+      .send();
+  });
+
+  $(document).one('pageRender', function() {
+    $('.button-next').tap(function() {
+      API.request('POST', '/partners/buy', {id: Page.getParam('deal_id')})
+        .success(function(response) {
+          console.log(response);
+          event.renderer(response.data.result);
+        })
+        .send();
+    });
+  });
+</script>

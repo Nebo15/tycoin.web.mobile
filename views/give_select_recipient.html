@@ -16,15 +16,19 @@
 </script>
 
 <script type="text/javascript">
-  $(document).one('pageLoad', function(event) {
-    Backend.GetRequest('/social/facebook_friends').done(function (data, a) {
-      event.renderer({users:data.result});
-    });
+  Navigation.setMenuActivePage('give');
+
+  $(document).one('pageLoadSuccess', function(event) {
+    API.request('GET', '/social/facebook_friends')
+      .success(function(response) {
+        event.renderer({users:response.data.result});
+      })
+      .send();
   });
 
   $(document).one('pageRender', function() {
     $('li[uid]').tap(function() {
-      Navigation.redirectToPage('send_select_message:coin_type=' + Navigation.getParam('coin_type') + '&uid=' + $(this).attr('uid'));
+      Navigation.redirectToPage('give_select_message:coin_type=' + Page.getParam('coin_type') + '&uid=' + $(this).attr('uid'));
     });
   });
 </script>
