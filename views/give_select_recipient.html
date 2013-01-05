@@ -1,6 +1,6 @@
 <script id="header_template" type="text/x-handlebars-template">
   <a class="button-prev">Back</a>
-  <h1 class="title">Send coins</h1>
+  <h1 class="title">Give "Thank you"</h1>
 </script>
 
 <script id="content_template" type="text/x-handlebars-template">
@@ -22,7 +22,6 @@
   $(document).one('pageLoadSuccess', function(event) {
     API.request('GET', '/social/facebook_friends')
       .success(function(response) {
-        console.log(response);
         event.renderer({users:response.data.result});
       })
       .send();
