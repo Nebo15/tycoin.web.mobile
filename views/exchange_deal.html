@@ -30,10 +30,11 @@
   $(document).one('pageRender', function() {
     $('a.button:contains(Exchange)').tap(function() {
       if(confirm("Are you sure?")) {
-        API.request('POST', '/partners/buy', {id: Page.getParam('deal_id')})
+        Loader.show('Sending coins');
+        API.request('POST', '/partners/buy/' + Page.getParam('deal_id'))
           .success(function(response) {
-            console.log(response);
-            event.renderer(response.data.result);
+            Loader.show('Coins sent');
+            Navigation.redirectToPage('give');
           })
           .send();
       }
