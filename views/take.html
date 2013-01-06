@@ -12,7 +12,7 @@
           {{sender.name}} sent {{coins_count}}<img src="views/images/{{coins_type}}-coin.jpg" width="20" style="vertical-align: middle;" />
           to {{recipient.name}}
         {{else}}
-
+          {{sender.name}} payed {{coins_count}}<img src="views/images/{{coins_type}}-coin.jpg" width="20" style="vertical-align: middle;" />
         {{/if-eq}}
       </p>
       <span class="count">{{time}}</span>
@@ -27,6 +27,7 @@
   $(document).one('pageLoadSuccess', function(event) {
     API.request('GET', '/transaction/history')
       .success(function(response) {
+        console.log(response);
         event.renderer({
           history:      response.data.result,
           current_user: Storage.get('user')
