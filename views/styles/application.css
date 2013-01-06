@@ -44,11 +44,13 @@ li {
 
 /* Coins page */
 .coins-holder {
-  margin-top: 30px;
+  text-align: center;
 }
 
-.coin-holder {
-  text-align: center;
+.coin-holder .count {
+  position: relative;
+  left: 30px;
+  top: -50px;
 }
 
 .coin-holder img {
