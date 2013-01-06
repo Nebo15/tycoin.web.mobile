@@ -1,19 +1,43 @@
 <script id="header_template" type="text/x-handlebars-template">
-  <h1 class="title">Buy coins</h1>
+    <h1 class="title">Buy coins</h1>
 </script>
 
 <script id="content_template" type="text/x-handlebars-template">
-  <div class="content-padded">
-    <div class="text-block">
-      List of prices.
-    </div>
-  </div>
+    <ul class="list">
+        {{#deals}}
+        <li>
+            {{coins_count}}<img src="views/images/{{coins_type}}-coin.jpg" width="20" style="vertical-align: middle;"/>
+            for ${{price}}
+            <a class="button" deal_id="{{id}}">Buy</a>
+        </li>
+        {{/deals}}
+    </ul>
 </script>
 
 <script type="text/javascript">
-  $('.tab-item[page=send]').addClass('active');
+    $('.tab-item[page=send]').addClass('active');
 
-  $(document).one('pageLoadSuccess', function(event) {
-    event.renderer();
-  });
+    $(document).one('pageLoadSuccess', function (event) {
+        API.request('GET', '/shop/deals')
+                .success(function (response) {
+                    event.renderer({deals:response.data.result});
+                })
+                .send();
+    });
+
+    $(document).one('pageRender', function () {
+        $('a.button:contains(Buy)').tap(function () {
+            var id = $(this).attr('deal_id');
+            if (confirm("Are you sure?")) {
+                API.request('POST', '/shop/purchase/' + id)
+                        .success(function (response) {
+                            Loader.show('Success');
+                            setTimeout(function () {
+                                Navigation.redirectToDefaultPage();
+                            }, 2000);
+                        })
+                        .send();
+            }
+        });
+    });
 </script>
