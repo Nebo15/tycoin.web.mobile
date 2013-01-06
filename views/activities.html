@@ -1,9 +1,11 @@
 <script id="header_template" type="text/x-handlebars-template">
-  <h1 class="title">Take "Thank you"</h1>
-  <a class="button" id="config-button"><i class="icon-cog"></i></a>
+  <a class="button-prev">Back</a>
+  <h1 class="title">Activities</h1>
+  <a class="button">Logout</a>
 </script>
 
 <script id="content_template" type="text/x-handlebars-template">
+  <!--<a class="button-block" href="#take">Get coins by code</a>-->
   <ul class="list history">
     {{#history}}
     <li>
@@ -22,12 +24,11 @@
 </script>
 
 <script type="text/javascript">
-  Navigation.setMenuActivePage('take');
+  Navigation.setMenuActivePage('settings');
 
   $(document).one('pageLoadSuccess', function(event) {
     API.request('GET', '/transaction/history')
       .success(function(response) {
-        console.log(response);
         event.renderer({
           history:      response.data.result,
           current_user: Storage.get('user')
@@ -40,5 +41,8 @@
     $(".count").each(function(index) {
       $(this).text(Tools.prettyDate($(this).text() * 1000));
     });
+
+    $("a.button:contains(Logout)").tap(API.logout);
   });
+
 </script>

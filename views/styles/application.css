@@ -83,6 +83,10 @@ li {
   padding: 0 0 6px 10px;
 }
 
+.history p {
+  width: 65%;
+}
+
 /* User */
 .user-thumb {
   padding: 0 5px 0 0;
