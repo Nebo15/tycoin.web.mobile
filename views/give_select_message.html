@@ -41,7 +41,7 @@
       };
 
       Loader.show('Sending coins');
-      API.request('POST', '/transaction/transfer')
+      API.request('POST', '/transaction/transfer', data)
         .success(function(response) {
           Loader.show('Coins sent');
           setTimeout(function(){
