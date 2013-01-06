@@ -38,8 +38,6 @@
 
   $(document).one('pageLoadSuccess', function(event) {
     getBalance(function(balance) {
-      console.log(balance);
-
       balance.free_coins_available_time_pretty = Tools.prettyDate((new Date().getTime() + 60*60*12) * 1000);
 
       event.renderer({balance:balance});

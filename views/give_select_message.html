@@ -11,7 +11,7 @@
     <br style="clear:both;" />
 
     Enter message:
-    <textarea id="message" placeholder="Moment description...">Thank you for your help, lorem ipsum dolor sit amet...</textarea>
+    <textarea id="message" placeholder="Thank you for...">Thank you for your help, lorem ipsum dolor sit amet...</textarea>
   </div>
 </script>
 
@@ -37,7 +37,7 @@
       var data = {
         'uid': Page.getParam('uid'),
         'type': Page.getParam('coin_type') == "big" ? "big" : "usual",
-        'message': $('#message').text()
+        'message': $('#message').val()
       };
 
       Loader.show('Sending coins');
