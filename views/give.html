@@ -11,24 +11,25 @@
 
     <div class="coins-holder">
       <div class="coin-holder">
-        <img src="views/images/usual-coin.jpg" class="coin usual" />
+        <img src="views/images/usual-coin.jpg" class="coin" type="usual" />
         <!--<br/>
-        {{balance.usual_coins_total}}-->
+        {{balance.usual_coins_to_send}}-->
       </div>
 
       <div class="coin-holder">
-        <img src="views/images/big-coin.jpg" class="coin big" />
+        <img src="views/images/big-coin.jpg" class="coin" type="big" />
         <!--<br/>
         {{balance.purchased_big_coins_count}}-->
       </div>
     </div>
     <br style="clear:both;" />
 
-    {{#if-eq balance.free_coins_available "true"}}
-      <div class="text-block no-coins">
-        You dont have free coins, but you will recieve one for free tommorow. Or you can simply <a href="#buy">buy</a> them.
-      </div>
-    {{/if-eq}}
+    {{#unless balance.free_coins_available}}
+      <!--<div class="text-block no-coins">
+        You dont have free coins, but you will recieve one for free in {{balance.free_coins_available_time_pretty}}.
+        Or you can simply <a href="#buy">buy</a> them.
+      </div>-->
+    {{/unless}}
   </div>
 </script>
 
@@ -37,15 +38,27 @@
 
   $(document).one('pageLoadSuccess', function(event) {
     getBalance(function(balance) {
+      console.log(balance);
+
+      balance.free_coins_available_time_pretty = Tools.prettyDate((new Date().getTime() + 60*60*12) * 1000);
+
       event.renderer({balance:balance});
     })
   });
 
   $(document).one('pageRender', function() {
     $('.coin-holder').tap(function() {
-      var type = $(this).find('.coin').hasClass('usual') ? 0 : 1;
+      var type = $(this).find('.coin').attr('type');
 
-      Navigation.redirectToPage('give_select_recipient:coin_type=' + type);
+      getCachedBalance(function(balance) {
+        if(balance[type + '_coins_to_send'] < 1) {
+          if(confirm('You dont have ' + type + ' "Thank you", would you like to buy it?')) {
+            Navigation.redirectToPage('buy');
+          }
+        } else {
+          Navigation.redirectToPage('give_select_recipient:coin_type=' + type);
+        }
+      });
     });
   });
 </script>
