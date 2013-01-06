@@ -11,8 +11,11 @@
     <li>
       <p>
         {{#if-eq type "transfer"}}
-          {{sender.name}} sent {{coins_count}}<img src="views/images/{{coins_type}}-coin.jpg" width="20" style="vertical-align: middle;" />
-          to {{recipient.name}}
+          {{#if-eq subtype "+"}}
+          +{{coins_count}}<img src="views/images/{{coins_type}}-coin.jpg" width="20" style="vertical-align: middle;" /> from {{sender.name}}
+          {{else}}
+          -{{coins_count}}<img src="views/images/{{coins_type}}-coin.jpg" width="20" style="vertical-align: middle;" /> to {{recipient.name}}
+          {{/if-eq}}
         {{else}}
           {{sender.name}} payed {{coins_count}}<img src="views/images/{{coins_type}}-coin.jpg" width="20" style="vertical-align: middle;" />
         {{/if-eq}}
@@ -29,10 +32,16 @@
   $(document).one('pageLoadSuccess', function(event) {
     API.request('GET', '/transaction/history')
       .success(function(response) {
-        event.renderer({
-          history:      response.data.result,
-          current_user: Storage.get('user')
+        console.log(response.data.result);
+        var current_user = Storage.get('user');
+        $.each(response.data.result, function(index, value) {
+          if(value.recipient_id == current_user.id) {
+            response.data.result[index].subtype = '+';
+          } else {
+            response.data.result[index].subtype = '-';
+          }
         });
+        event.renderer({history: response.data.result});
       })
       .send();
   });
