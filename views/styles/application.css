@@ -16,6 +16,21 @@ li {
   padding: 5px 60px 5px 10px;
 }
 
+ul, li, .content-padded {
+  background: transparent;
+}
+
+.tab-label .count {
+ position: relative;
+ top:-2px;
+ font-size: 0.8em;
+ padding: 3px 8px;
+}
+
+.tab-inner .tab-item {
+  width: 50%;
+}
+
 /* Preloader */
 .preloader {
   position: fixed;
