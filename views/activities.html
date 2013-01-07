@@ -12,9 +12,9 @@
       <p>
         {{#if-eq type "transfer"}}
           {{#if-eq subtype "+"}}
-          +{{coins_count}}<img src="views/images/{{coins_type}}-coin.jpg" width="20" style="vertical-align: middle;" /> from {{sender.name}}
+          +{{coins_count}}<img src="views/images/{{coins_type}}-coin.jpg" width="20" style="vertical-align: middle;" /> from <a href="http://www.facebook.com/profile.php?id={{sender.facebook_uid}}" target="_blank" rel="external">{{sender.name}}</a>
           {{else}}
-          -{{coins_count}}<img src="views/images/{{coins_type}}-coin.jpg" width="20" style="vertical-align: middle;" /> to {{recipient.name}}
+          -{{coins_count}}<img src="views/images/{{coins_type}}-coin.jpg" width="20" style="vertical-align: middle;" /> to <a href="http://www.facebook.com/profile.php?id={{recipient.facebook_uid}}" target="_blank" rel="external">{{recipient.name}}</a>
           {{/if-eq}}
         {{else}}
           {{sender.name}} payed {{coins_count}}<img src="views/images/{{coins_type}}-coin.jpg" width="20" style="vertical-align: middle;" />
@@ -32,7 +32,6 @@
   $(document).one('pageLoadSuccess', function(event) {
     API.request('GET', '/transaction/history')
       .success(function(response) {
-        console.log(response.data.result);
         var current_user = Storage.get('user');
         $.each(response.data.result, function(index, value) {
           if(value.recipient_id == current_user.id) {
@@ -40,6 +39,7 @@
           } else {
             response.data.result[index].subtype = '-';
           }
+          console.log(value);
         });
         event.renderer({history: response.data.result});
       })
