@@ -59,10 +59,71 @@
         $("#config-button").tap(function() {
           Navigation.redirectToPage('activities');
         });
+
+        $(".button[backpane-id]").tap(function() {
+          if($('body').hasClass('openPaneLeft')) {
+            $('body').removeClass('openPaneLeft');
+            $('#'+$(this).attr('backpane-id')).removeClass('visible');
+          } else {
+            var $this = $(this);
+            var icon = $this.find('.icon-reorder');
+
+            icon.addClass('icon-spin icon-refresh');
+            icon.removeClass('icon-reorder');
+
+            updateActivities(function() {
+              icon.addClass('icon-reorder');
+              icon.removeClass('icon-spin icon-refresh');
+
+              $('#'+$this.attr('backpane-id')).addClass('visible');
+              $('body').addClass('openPaneLeft');
+            });
+          }
+        });
+      });
+
+      function updateActivities(onSuccess) {
+        API.request('GET', '/transaction/history')
+          .success(function(response) {
+            var current_user = Storage.get('user');
+            $.each(response.data.result, function(index, value) {
+              if(value.recipient_id == current_user.id) {
+                response.data.result[index].subtype = '+';
+              } else {
+                response.data.result[index].subtype = '-';
+              }
+            });
+
+            var tpl = Template.loadSubtemplate('activities');
+            Template.renderElement(tpl, $('#transaction_history'), {history: response.data.result})
+
+            $(".count").each(function(index) {
+              $(this).text(Tools.prettyDate($(this).text() * 1000));
+            });
+
+            onSuccess();
+          })
+          .send();
+      }
+
+      $(window).load(function() {
+        $("#logout").tap(API.logout);
       });
     </script>
   </head>
   <body>
+    <!-- Backpane -->
+    <div id="backpane_left" class="backPane">
+      <ul class="list">
+        <li class="list-divider">Menu</li>
+        <li>Intro <span class="chevron"></span></li>
+        <li id="logout">Logout <span class="chevron"></span></li>
+      </ul>
+      <div id="transaction_history">
+
+      </div>
+    </div>
+
     <!-- Header, replaced if neccessary -->
     <header class="bar-title"></header>
 

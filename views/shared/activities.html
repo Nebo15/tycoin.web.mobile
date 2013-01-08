@@ -1,0 +1,19 @@
+<ul class="list history">
+  <li class="list-divider">Transaction history</li>
+  {{#history}}
+  <li>
+    <p>
+      {{#if-eq type "transfer"}}
+        {{#if-eq subtype "+"}}
+        +{{coins_count}}<img src="views/images/{{coins_type}}-coin.jpg" width="20" style="vertical-align: middle;" /> from {{sender.name}}
+        {{else}}
+        -{{coins_count}}<img src="views/images/{{coins_type}}-coin.jpg" width="20" style="vertical-align: middle;" /> to {{recipient.name}}
+        {{/if-eq}}
+      {{else}}
+        {{sender.name}} payed {{coins_count}}<img src="views/images/{{coins_type}}-coin.jpg" width="20" style="vertical-align: middle;" />
+      {{/if-eq}}
+    </p>
+    <span class="count">{{time}}</span>
+  </li>
+  {{/history}}
+</ul>

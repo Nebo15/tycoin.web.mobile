@@ -1,11 +1,10 @@
 <script id="header_template" type="text/x-handlebars-template">
+  <a class="button" backpane-id="backpane_left"><i class="icon-reorder"></i></a>
   <h1 class="title">Exchange "Thank you"</h1>
-  <a class="button" id="config-button"><i class="icon-book"></i></a>
 </script>
 
 <script id="content_template" type="text/x-handlebars-template">
-  <ul class="list">
-    <li class="list-divider">Get...</li>
+  <ul class="list compact">
     {{#partners}}
     <li deal_id="{{id}}">
       <img src="{{image}}" width="40" style="vertical-align: middle;" /> {{good}} for
