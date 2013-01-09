@@ -1,0 +1,44 @@
+<script id="header_template" type="text/x-handlebars-template">
+  <h1 class="title">Take "Thank you"</h1>
+  <a class="button" id="config-button"><i class="icon-cog"></i></a>
+</script>
+
+<script id="content_template" type="text/x-handlebars-template">
+  <ul class="list history">
+    {{#history}}
+    <li>
+      <p>
+        {{#if-eq type "transfer"}}
+          {{sender.name}} sent {{coins_count}}<img src="views/images/{{coins_type}}-coin.jpg" width="20" style="vertical-align: middle;" />
+          to {{recipient.name}}
+        {{else}}
+          {{sender.name}} payed {{coins_count}}<img src="views/images/{{coins_type}}-coin.jpg" width="20" style="vertical-align: middle;" />
+        {{/if-eq}}
+      </p>
+      <span class="count">{{time}}</span>
+    </li>
+    {{/history}}
+  </ul>
+</script>
+
+<script type="text/javascript">
+  Navigation.setMenuActivePage('take');
+
+  $(document).one('pageLoadSuccess', function(event) {
+    API.request('GET', '/transaction/history')
+      .success(function(response) {
+        console.log(response);
+        event.renderer({
+          history:      response.data.result,
+          current_user: Storage.get('user')
+        });
+      })
+      .send();
+  });
+
+  $(document).one('pageRender', function() {
+    $(".count").each(function(index) {
+      $(this).text(Tools.prettyDate($(this).text() * 1000));
+    });
+  });
+</script>

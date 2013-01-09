@@ -71,12 +71,12 @@
             icon.addClass('icon-spin icon-refresh');
             icon.removeClass('icon-reorder');
 
+            $('#'+$this.attr('backpane-id')).addClass('visible');
+            $('body').addClass('openPaneLeft');
+
             updateActivities(function() {
               icon.addClass('icon-reorder');
               icon.removeClass('icon-spin icon-refresh');
-
-              $('#'+$this.attr('backpane-id')).addClass('visible');
-              $('body').addClass('openPaneLeft');
             });
           }
         });
@@ -107,7 +107,11 @@
       }
 
       $(window).load(function() {
-        $("#logout").tap(API.logout);
+        $("#logout").tap(function() {
+          if(confirm('Do you really want to log out?')) {
+            API.logout();
+          }
+        });
       });
     </script>
   </head>
@@ -116,11 +120,16 @@
     <div id="backpane_left" class="backPane">
       <ul class="list">
         <li class="list-divider">Menu</li>
-        <li>Intro <span class="chevron"></span></li>
+        <li><a href="#give">Give <span class="chevron"></span></a></li>
+        <li><a href="#exchange">Exchange <span class="chevron"></span><span class="count-negative" id="coins-to-exchange">0</span></a></li>
         <li id="logout">Logout <span class="chevron"></span></li>
       </ul>
-      <div id="transaction_history">
 
+      <div id="transaction_history">
+        <ul class="list history">
+          <li class="list-divider">Transaction history</li>
+          <li class="list-loader"><i class="icon-spinner icon-spin icon-2x"></i></li>
+        </ul>
       </div>
     </div>
 
@@ -138,23 +147,5 @@
       <i class="icon-spinner icon-spin icon-2x"></i>
       <p class="text-block">Initializing application...</p>
     </div>
-
-    <!-- Footer, permanent -->
-    <nav class="bar-tab">
-      <ul class="tab-inner">
-        <li class="tab-item" page="give">
-          <i class="tab-icon icon-signout icon-large"></i>
-          <div class="tab-label">Give <span class="count" id="coins-to-send">0</span></div>
-        </li>
-        <!--<li class="tab-item" page="take">
-          <i class="tab-icon icon-signin icon-large"></i>
-          <div class="tab-label">Take</div>
-        </li>-->
-        <li class="tab-item" page="exchange">
-          <i class="tab-icon icon-gift icon-large"></i>
-          <div class="tab-label">Exhange <span class="count" id="coins-to-exchange">0</span></div>
-        </li>
-      </ul>
-    </nav>
   </body>
 </html>

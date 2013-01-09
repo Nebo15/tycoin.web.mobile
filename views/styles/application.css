@@ -31,6 +31,14 @@ ul, li, .content-padded {
   width: 50%;
 }
 
+.button[backpane-id] .count-negative {
+  position: absolute;
+  top:17px;
+  right:-4px;
+  font-size: 0.8em;
+  padding: 3px 8px;
+}
+
 /* List hover effects */
 /*li[uid]:active, li[deal_id]:active {
   background-color: #71b1d1;
@@ -85,6 +93,12 @@ ul, li, .content-padded {
 .content,
 .bar-tab {
   -webkit-transition:-webkit-transform 0.3s ease;
+}
+
+/* list-loader */
+.list-loader {
+  text-align: center;
+  padding-top: 5px;
 }
 
 /* Preloader */
@@ -150,6 +164,10 @@ ul, li, .content-padded {
 }
 
 /* History */
+.history {
+  font-size: 0.8em;
+}
+
 .history li {
   padding: 0 0 6px 10px;
 }
