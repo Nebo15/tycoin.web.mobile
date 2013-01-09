@@ -7,12 +7,14 @@
 
 <script id="content_template" type="text/x-handlebars-template">
   <div class="content-padded">
+  
+  <div class="content-padded">  
     <img style="float:left;" src="{{#if image_150}}{{image_150}}{{else}}views/images/no_image_115x115.png{{/if}}" width="50" />
     <h1 style="margin-left:10px;">&nbsp;&nbsp;{{name}}</h1>
     <br style="clear:both;" />
 
     Enter message:
-    <textarea id="message" placeholder="Thank you for...">Thank you for your help, lorem ipsum dolor sit amet...</textarea>
+    <textarea id="message" placeholder="Thank you for...">Thank you for your help!</textarea>
   </div>
 </script>
 
@@ -31,6 +33,17 @@
         event.renderer(user);
       })
       .send();
+    getCachedBalance(function(balance) {
+        console.log(balance);
+        if(balance[type + '_coins_to_send'] < 1) {
+          if(confirm('You dont have ' + type + ' "Thank you", would you like to buy it?')) {
+            Navigation.redirectToPage('buy');
+          }
+        } else {
+          Navigation.redirectToPage('give_select_recipient:coin_type=' + type);
+        }
+      });
+
   });
 
   $(document).one('pageRender', function() {
