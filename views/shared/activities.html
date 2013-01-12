@@ -1,6 +1,9 @@
 <ul class="list history">
-  <li class="list-divider">Transaction history</li>
-  {{#history}}
+  <li class="list-divider">
+    Transaction history
+    <span class="icon-refresh icon-spin"></span>
+  </li>
+  {{#activities}}
   <li>
     <p>
       {{#if-eq type "transfer"}}
@@ -15,7 +18,7 @@
         Exchanged {{coins_count}}<img src="views/images/{{coins_type}}-coin.jpg" width="20" style="vertical-align: middle;" /> with ...
       {{/if-eq}}
     </p>
-    <span class="count">{{time}}</span>
+    <span class="count{{#if updated}}-negative{{/if}}">{{time}}</span>
   </li>
-  {{/history}}
+  {{/activities}}
 </ul>

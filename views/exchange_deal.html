@@ -34,6 +34,7 @@
         API.request('POST', '/partners/buy/' + Page.getParam('deal_id'))
           .success(function(response) {
             Loader.show('Coins sent');
+            App.dropCache();
             Navigation.redirectToPage('give');
           })
           .send();

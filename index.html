@@ -41,8 +41,9 @@
     <script src="lib/Page.js"></script>
     <script src="lib/Touch.js"></script>
     <script src="lib/Navigation.js"></script>
+    <script src="lib/Backpane.js"></script>
     <script src="lib/Tools.js"></script>
-    <script src="lib/Main.js"></script>
+    <script src="lib/App.js"></script>
 
     <!-- Override for developers -->
     <script src="lib/Override.js"></script>
@@ -52,72 +53,20 @@
       // Init Navigaion
       $(window).load(Navigation.onLoad);
 
-      if(Navigation.getLocation() != 'give')
-        getBalance(function() {});
-
-      $(document).bind('pageRender', function() {
-        $("#config-button").tap(function() {
-          Navigation.redirectToPage('activities');
-        });
-
-        $(".button[backpane-id]").tap(function() {
-          if($('body').hasClass('openPaneLeft')) {
-            $('body').removeClass('openPaneLeft');
-            $('#'+$(this).attr('backpane-id')).removeClass('visible');
-          } else {
-            var $this = $(this);
-            var icon = $this.find('.icon-reorder');
-
-            icon.addClass('icon-spin icon-refresh');
-            icon.removeClass('icon-reorder');
-
-            $('#'+$this.attr('backpane-id')).addClass('visible');
-            $('body').addClass('openPaneLeft');
-
-            updateActivities(function() {
-              icon.addClass('icon-reorder');
-              icon.removeClass('icon-spin icon-refresh');
-            });
-          }
-        });
-      });
-
-      function updateActivities(onSuccess) {
-        API.request('GET', '/transaction/history')
-          .success(function(response) {
-            var current_user = Storage.get('user');
-            $.each(response.data.result, function(index, value) {
-              if(value.recipient_id == current_user.id) {
-                response.data.result[index].subtype = '+';
-              } else {
-                response.data.result[index].subtype = '-';
-              }
-            });
-
-            var tpl = Template.loadSubtemplate('activities');
-            Template.renderElement(tpl, $('#transaction_history'), {history: response.data.result})
-
-            $(".count").each(function(index) {
-              $(this).text(Tools.prettyDate($(this).text() * 1000));
-            });
-
-            onSuccess();
-          })
-          .send();
+      if(Navigation.getLocation() != 'give') {
+        App.updateBalance();
       }
 
-      $(window).load(function() {
-        $("#logout").tap(function() {
-          if(confirm('Do you really want to log out?')) {
-            API.logout();
-          }
-        });
-      });
+      if(navigator) {
+        if(!navigator.onLine) {
+          alert("You are offline!");
+        }
+      }
     </script>
   </head>
   <body>
     <!-- Backpane -->
-    <div id="backpane_left" class="backPane">
+    <div id="left" class="backPane">
       <ul class="list">
         <li class="list-divider">Menu</li>
         <li><a href="#give">Give <span class="chevron"></span></a></li>
@@ -127,8 +76,10 @@
 
       <div id="transaction_history">
         <ul class="list history">
-          <li class="list-divider">Transaction history</li>
-          <li class="list-loader"><i class="icon-spinner icon-spin icon-2x"></i></li>
+          <li class="list-divider">
+            Transaction history
+            <span class="icon-refresh icon-spin"></span>
+          </li>
         </ul>
       </div>
     </div>

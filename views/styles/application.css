@@ -31,14 +31,6 @@ ul, li, .content-padded {
   width: 50%;
 }
 
-.button[backpane-id] .count-negative {
-  position: absolute;
-  top:17px;
-  right:-4px;
-  font-size: 0.8em;
-  padding: 3px 8px;
-}
-
 /* List hover effects */
 /*li[uid]:active, li[deal_id]:active {
   background-color: #71b1d1;
@@ -93,6 +85,16 @@ ul, li, .content-padded {
 .content,
 .bar-tab {
   -webkit-transition:-webkit-transform 0.3s ease;
+}
+
+.button[backpane-id] > [class^="count-"],
+.button[backpane-id] > [class*=" count-"] {
+  position: absolute;
+  top:17px;
+  right:-4px;
+  font-size: 0.8em;
+  padding: 3px 8px;
+  opacity: 0;
 }
 
 /* list-loader */

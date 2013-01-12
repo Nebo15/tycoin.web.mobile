@@ -1,7 +1,7 @@
 <script id="header_template" type="text/x-handlebars-template">
-  <a class="button" backpane-id="backpane_left">
+  <a class="button" backpane-id="left">
     <i class="icon-reorder"></i>
-    <span class="count-negative" id="coins-to-exchange">{{balance.coins_to_exchange}}</span>
+    <span class="count-negative">0</span>
   </a>
   <h1 class="title">Give "Thank you"</h1>
 </script>
@@ -29,7 +29,7 @@
 
     {{#unless balance.free_coins_available}}
       <!--<div class="text-block no-coins">
-        You dont have free coins, but you will recieve one for free in {{balance.free_coins_available_time_pretty}}.
+        You dont have free coins, but you will recieve one for free in {{balance.free_coins_available_time}}.
         Or you can simply <a href="#buy">buy</a> them.
       </div>-->
     {{/unless}}
@@ -40,18 +40,16 @@
   Navigation.setMenuActivePage('give');
 
   $(document).one('pageLoadSuccess', function(event) {
-    getBalance(function(balance) {
-      balance.free_coins_available_time_pretty = Tools.prettyDate((new Date().getTime() + 60*60*12) * 1000);
-
+    App.getBalance(function(balance) {
       event.renderer({balance:balance});
-    })
+    });
   });
 
   $(document).one('pageRender', function() {
     $('.coin-holder').tap(function() {
       var type = $(this).find('.coin').attr('type');
 
-      getCachedBalance(function(balance) {
+      App.getBalance(function(balance) {
         if(balance[type + '_coins_to_send'] < 1) {
           if(confirm('You dont have ' + type + ' "Thank you", would you like to buy it?')) {
             Navigation.redirectToPage('buy');
@@ -59,7 +57,7 @@
         } else {
           Navigation.redirectToPage('give_select_recipient:coin_type=' + type);
         }
-      });
+      }, true);
     });
   });
 </script>
