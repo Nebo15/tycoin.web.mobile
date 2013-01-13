@@ -8,6 +8,12 @@
 
 <script id="content_template" type="text/x-handlebars-template">
   <ul class="list compact">
+    <li class="list-divider">
+      You have
+      <span class="coin-icon coin-usual">{{balance.received_coins_count}}</span>
+      and
+      <span class="coin-icon coin-big">{{balance.received_big_coins_count}}</span>
+    </li>
     {{#partners}}
     <li deal_id="{{id}}">
       <img src="{{image}}" width="40" style="vertical-align: middle;" /> {{good}} for
@@ -24,7 +30,9 @@
   $(document).one('pageLoadSuccess', function(event) {
     API.request('GET', '/partners/deals')
       .success(function(response) {
-        event.renderer({partners:response.data.result});
+        App.getBalance(function(balance) {
+          event.renderer({partners:response.data.result, balance:balance});
+        });
       })
       .send();
   });

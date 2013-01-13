@@ -2,14 +2,14 @@
   <p>
     {{#if-eq type "transfer"}}
       {{#if-eq subtype "+"}}
-      +{{coins_count}}<img src="views/images/{{coins_type}}-coin.jpg" width="20" style="vertical-align: middle;" />
-      from <a href="http://www.facebook.com/profile.php?id={{sender.facebook_uid}}" target="_blank" rel="external">{{sender.name}}</a>
+        <span class="coin-icon coin-{{coins_type}}">{{coins_count}}</span>
+        recieved from <a href="http://www.facebook.com/profile.php?id={{sender.facebook_uid}}" target="_blank" rel="external">{{sender.name}}</a>
       {{else}}
-      -{{coins_count}}<img src="views/images/{{coins_type}}-coin.jpg" width="20" style="vertical-align: middle;" />
-      to <a href="http://www.facebook.com/profile.php?id={{recipient.facebook_uid}}" target="_blank" rel="external">{{recipient.name}}</a>
+        <span class="coin-icon coin-{{coins_type}}">{{coins_count}}</span>
+        sent to <a href="http://www.facebook.com/profile.php?id={{recipient.facebook_uid}}" target="_blank" rel="external">{{recipient.name}}</a>
       {{/if-eq}}
     {{else}}
-      Exchanged {{coins_count}}<img src="views/images/{{coins_type}}-coin.jpg" width="20" style="vertical-align: middle;" /> with ...
+      Exchanged <span class="coin-icon coin-{{coins_type}}">{{coins_count}}</span> with ...
     {{/if-eq}}
   </p>
   <span class="count{{#if updated}}-negative{{/if}}">{{time}}</span>

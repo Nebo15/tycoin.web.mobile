@@ -21,10 +21,10 @@ ul, li, .content-padded {
 }
 
 .tab-label .count {
- position: relative;
- top:-2px;
- font-size: 0.8em;
- padding: 3px 8px;
+  position: relative;
+  top:-2px;
+  font-size: 0.8em;
+  padding: 3px 8px;
 }
 
 .tab-inner .tab-item {
@@ -124,6 +124,33 @@ ul, li, .content-padded {
   line-height: 1.5;
   color: #555;
   text-align: center;
+}
+
+/* Coins icons */
+.coin-icon {
+  display: inline-block;
+  width:13px;
+  padding: 4px 4px;
+  font-size: 12px;
+  text-align:center;
+  font-weight: bold;
+  line-height: 13px;
+  color: #fff;
+  border-radius: 100px;
+}
+
+.coin-usual {
+  background-color: #aaa;
+}
+
+.coin-big {
+  background-color: #daa520;
+}
+
+.menu .coins-counts {
+  margin-top: -15px;
+  right: 30px;
+  background-color: rgba(0, 0, 0, .05);
 }
 
 /* Coins page */

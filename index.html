@@ -67,10 +67,28 @@
   <body>
     <!-- Backpane -->
     <div id="left" class="backPane">
-      <ul class="list">
+      <ul class="list menu">
         <li class="list-divider">Menu</li>
-        <li><a href="#give">Give <span class="chevron"></span></a></li>
-        <li><a href="#exchange">Exchange <span class="chevron"></span></a></li>
+        <li>
+          <a href="#give">
+            Give
+            <span class="coins-counts" type="give">
+              <span class="coin-icon coin-usual">0</span>
+              <span class="coin-icon coin-big">0</span>
+            </span>
+            <span class="chevron"></span>
+          </a>
+        </li>
+        <li>
+          <a href="#exchange">
+            Exchange
+            <span class="coins-counts" type="exchange">
+              <span class="coin-icon coin-usual">0</span>
+              <span class="coin-icon coin-big">0</span>
+            </span>
+            <span class="chevron"></span>
+          </a>
+        </li>
         <li id="logout">Logout <span class="chevron"></span></li>
       </ul>
 
