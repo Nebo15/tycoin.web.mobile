@@ -165,16 +165,16 @@ ul, li, .content-padded {
   opacity : 0.4;
 }
 
-/* History */
-.history {
+/* Activities */
+.activities {
   font-size: 0.8em;
 }
 
-.history li {
+.activities li {
   padding: 0 0 6px 10px;
 }
 
-.history p {
+.activities p {
   width: 65%;
 }
 
