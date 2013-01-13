@@ -36,7 +36,7 @@
       if (confirm("Are you sure?")) {
         API.request('POST', '/shop/purchase/' + id)
           .success(function (response) {
-            Loader.show('Success');
+            Loader.show('Funds added');
             setTimeout(function () {
               Navigation.redirectToDefaultPage();
             }, 2000);
