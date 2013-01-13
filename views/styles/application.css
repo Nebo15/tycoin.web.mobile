@@ -153,6 +153,10 @@ ul, li, .content-padded {
   background-color: rgba(0, 0, 0, .05);
 }
 
+.activities .coin-icon {
+  margin-top: 5px;
+}
+
 /* Coins page */
 .coins-holder {
   text-align: center;
