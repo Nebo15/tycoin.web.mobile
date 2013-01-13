@@ -16,8 +16,8 @@
     </li>
     {{#partners}}
     <li deal_id="{{id}}">
-      <img src="{{image}}" width="40" style="vertical-align: middle;" /> {{good}} for
-      {{coins_count}}<img src="views/images/{{coins_type}}-coin.jpg" width="20" style="vertical-align: middle;" />
+      <img src="{{image}}" width="40" style="vertical-align: middle;" />
+      {{good}} for <span class="coin-icon coin-{{coins_type}}">{{coins_count}}</span>
       <span class="chevron"></span>
     </li>
     {{/partners}}
