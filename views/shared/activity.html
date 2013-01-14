@@ -9,7 +9,7 @@
         sent to <a href="http://www.facebook.com/profile.php?id={{recipient.facebook_uid}}" target="_blank" rel="external">{{recipient.name}}</a>
       {{/if-eq}}
     {{else}}
-      Exchanged <span class="coin-icon coin-{{coins_type}}">{{coins_count}}</span> with ...
+      Exchanged <span class="coin-icon coin-{{coins_type}}">{{coins_count}}</span> with {{message}}
     {{/if-eq}}
   </p>
   <span class="count{{#if updated}}-negative{{/if}}">{{time}}</span>
