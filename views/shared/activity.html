@@ -1,15 +1,26 @@
 <li>
   <p>
+    <span class="coin-icon-sign">{{subtype}}</span>
+    <span class="coin-icon coin-{{coins_type}}">{{coins_count}}</span>
+
     {{#if-eq type "transfer"}}
       {{#if-eq subtype "+"}}
-        <span class="coin-icon coin-{{coins_type}}">{{coins_count}}</span>
         recieved from <a href="http://www.facebook.com/profile.php?id={{sender.facebook_uid}}" target="_blank" rel="external">{{sender.name}}</a>
       {{else}}
-        <span class="coin-icon coin-{{coins_type}}">{{coins_count}}</span>
         sent to <a href="http://www.facebook.com/profile.php?id={{recipient.facebook_uid}}" target="_blank" rel="external">{{recipient.name}}</a>
       {{/if-eq}}
-    {{else}}
-      Exchanged <span class="coin-icon coin-{{coins_type}}">{{coins_count}}</span> with ...
+    {{/if-eq}}
+
+    {{#if-eq type "payment"}}
+      payed {{#if message}}for {{message}}{{/if}}.
+    {{/if-eq}}
+
+    {{#if-eq type "purchase"}}
+      is purchased.
+    {{/if-eq}}
+
+    {{#if-eq type "restore"}}
+      is restored.
     {{/if-eq}}
   </p>
   <span class="count{{#if updated}}-negative{{/if}}">{{time}}</span>

@@ -111,10 +111,17 @@ li {
 }
 
 /* Coins icons */
+.coin-icon-sign {
+  font-size: 12px;
+  text-align:center;
+  font-weight: bold;
+  line-height: 13px;
+}
+
 .coin-icon {
   display: inline-block;
   width:13px;
-  padding: 4px 4px;
+  padding: 4px;
   font-size: 12px;
   text-align:center;
   font-weight: bold;
