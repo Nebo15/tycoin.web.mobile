@@ -16,9 +16,9 @@ li {
   padding: 5px 60px 5px 10px;
 }
 
-ul, li, .content-padded {
+/*ul, li, .content-padded {
   background: transparent;
-}
+}*/
 
 .tab-label .count {
   position: relative;
@@ -31,12 +31,7 @@ ul, li, .content-padded {
   width: 50%;
 }
 
-/* List hover effects */
-/*li[uid]:active, li[deal_id]:active {
-  background-color: #71b1d1;
-}*/
-
-/* Back Panes */
+/* Backpane */
 .backPane {
   z-index:1;
   display:none;
@@ -59,33 +54,22 @@ ul, li, .content-padded {
   padding-bottom: 100px;
   bottom: -50px;
   box-shadow: -5px -50px 50px rgba(0, 0, 0, .2);
+  background: #fff;
 }
 
 .backPane.visible {
   display:block;
 }
 
-.openPaneLeft .bar-title,
-.openPaneLeft .content,
-.openPaneLeft .bar-tab {
-  -webkit-transform: translateX(85%);
-}
-.openPaneRight .bar-title,
-.openPaneRight .content,
-.openPaneRight .bar-tab {
-  -webkit-transform: translateX(-85%);
-}
-.backPane.rightPane {
-  left:15%;
-}
 .bar-title,
 .content,
 .bar-tab {
   -webkit-transition:-webkit-transform 0.3s ease;
+  transition:transform 0.3s ease;
 }
 
-.button[backpane-id] > [class^="count-"],
-.button[backpane-id] > [class*=" count-"] {
+.button#backpane > [class^="count-"],
+.button#backpane > [class*=" count-"] {
   position: absolute;
   top:17px;
   right:-4px;
