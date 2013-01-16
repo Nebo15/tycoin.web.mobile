@@ -53,9 +53,7 @@
 
       App.balance.get(function(balance) {
         if(balance[type + '_coins_to_send'] < 1) {
-          if(confirm('You dont have ' + type + ' "Thank you", would you like to buy it?')) {
-            Navigation.redirectToPage('buy');
-          }
+          Navigation.redirectToPage('buy');
         } else {
           Navigation.redirectToPage('give_select_recipient:coin_type=' + type);
         }

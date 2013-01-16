@@ -47,11 +47,9 @@
       Loader.show('Sending coins');
       API.request('POST', '/transaction/transfer', data)
         .success(function(response) {
-          Loader.show('Coins sent');
           App.balance.load(function() {
-            setTimeout(function(){
-              Navigation.redirectToDefaultPage();
-            }, 2000);
+            alert('Coins was sent');
+            Navigation.redirectToDefaultPage();
           });
         })
         .send();

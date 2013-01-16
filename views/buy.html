@@ -8,6 +8,12 @@
 </script>
 
 <script id="content_template" type="text/x-handlebars-template">
+  <div class="content-padded">
+    <div class="text-block">
+      It seems that you dont have coins to send, maybe you want to buy them?
+    </div>
+  </div>
+
   <ul class="list">
     {{#deals}}
     <li>
@@ -36,13 +42,11 @@
       if (confirm("Are you sure?")) {
         API.request('POST', '/shop/purchase/' + id)
           .success(function (response) {
-            Loader.show('Funds added');
-            setTimeout(function () {
-              Navigation.redirectToDefaultPage();
-            }, 2000);
+            alert('Coins is successfully exchanged');
+            Navigation.redirectToDefaultPage();
           })
           .send();
-        }
+      }
     });
   });
 </script>
