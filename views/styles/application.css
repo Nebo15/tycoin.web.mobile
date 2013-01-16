@@ -60,8 +60,8 @@ li {
 .bar-title,
 .content,
 .bar-tab {
-  -webkit-transition:-webkit-transform 0.3s ease;
-  transition:transform 0.3s ease;
+  -webkit-transition:-webkit-transform 0.1s linear;
+  transition:transform 0.1s linear;
 }
 
 .button#backpane > [class^="count-"],
