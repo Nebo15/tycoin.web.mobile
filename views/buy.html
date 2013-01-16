@@ -42,7 +42,7 @@
       if (confirm("Are you sure?")) {
         API.request('POST', '/shop/purchase/' + id)
           .success(function (response) {
-            alert('Coins is successfully exchanged');
+            alert('Coins purchased');
             Navigation.redirectToDefaultPage();
           })
           .send();

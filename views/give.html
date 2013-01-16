@@ -19,12 +19,14 @@
         <span class="count">{{balance.usual_coins_to_send}}</span>
       </div>
 
-     {{#if-eq balance.usual_coins_to_send "0"}}
-       <div class="text-block no-coins">
-         You dont have coins, but you will recieve one for free in {{balance.free_coins_available_time}}.
-         Or you can simply <a href="#buy">buy</a> them.
-       </div>
-     {{/if-eq}}
+      {{#if-eq balance.usual_coins_to_send "0"}}
+        <div class="text-block no-coins">
+          You dont have coins, but you will recieve one for free in {{balance.free_coins_available_time}}.
+          Or you can simply <a href="#buy">buy</a> them.
+        </div>
+      {{/if-eq}}
+
+      <br style="clear:both;" />
 
       <div class="coin-holder">
         <img src="views/images/big-coin.jpg" class="coin" type="big" />
@@ -32,9 +34,6 @@
         <span class="count">{{balance.purchased_big_coins_count}}</span>
       </div>
     </div>
-    <br style="clear:both;" />
-
-
   </div>
 </script>
 
