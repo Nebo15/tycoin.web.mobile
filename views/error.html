@@ -1,0 +1,21 @@
+<script id="header_template" type="text/x-handlebars-template">
+  <a class="button" id="backpane">
+    <i class="icon-reorder"></i>
+    <span class="count-negative">0</span>
+  </a>
+  <h1 class="title">TYCoin</h1>
+</script>
+
+<script id="content_template" type="text/x-handlebars-template">
+  <div class="content-padded">
+    <div class="text-block">
+      Connect to the internet.
+    </div>
+  </div>
+</script>
+
+<script type="text/javascript">
+  $(document).one('pageLoad', function(event) {
+    event.renderer();
+  });
+</script>
