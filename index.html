@@ -54,7 +54,7 @@
       $(window).load(Navigation.onLoad);
 
       if(Navigation.getLocation() != 'give') {
-        App.updateBalance();
+        App.balance.update();
       }
 
       if(navigator) {

@@ -37,9 +37,12 @@
         Loader.show('Sending coins');
         API.request('POST', '/partners/buy/' + Page.getParam('deal_id'))
           .success(function(response) {
-            Loader.show('Coins sent');
-            App.dropCache();
-            Navigation.redirectToPage('give');
+            Loader.show('Coins exchanged');
+            App.balance.load(function() {
+              setTimeout(function(){
+                Navigation.redirectToDefaultPage();
+              }, 2000);
+            });
           })
           .send();
       }

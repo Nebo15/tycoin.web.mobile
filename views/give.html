@@ -40,16 +40,18 @@
   Navigation.setMenuActivePage('give');
 
   $(document).one('pageLoadSuccess', function(event) {
-    App.getBalance(function(balance) {
+    App.balance.load(function(balance) {
       event.renderer({balance:balance});
     });
   });
 
   $(document).one('pageRender', function() {
+    App.balance.update();
+
     $('.coin-holder').tap(function() {
       var type = $(this).find('.coin').attr('type');
 
-      App.getBalance(function(balance) {
+      App.balance.get(function(balance) {
         if(balance[type + '_coins_to_send'] < 1) {
           if(confirm('You dont have ' + type + ' "Thank you", would you like to buy it?')) {
             Navigation.redirectToPage('buy');

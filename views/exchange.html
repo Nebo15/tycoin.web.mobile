@@ -30,7 +30,7 @@
   $(document).one('pageLoadSuccess', function(event) {
     API.request('GET', '/partners/deals')
       .success(function(response) {
-        App.getBalance(function(balance) {
+        App.balance.get(function(balance) {
           event.renderer({partners:response.data.result, balance:balance});
         });
       })

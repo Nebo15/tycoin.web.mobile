@@ -48,10 +48,11 @@
       API.request('POST', '/transaction/transfer', data)
         .success(function(response) {
           Loader.show('Coins sent');
-          App.dropCache();
-          setTimeout(function(){
-            Navigation.redirectToDefaultPage();
-          }, 2000);
+          App.balance.load(function() {
+            setTimeout(function(){
+              Navigation.redirectToDefaultPage();
+            }, 2000);
+          });
         })
         .send();
     });

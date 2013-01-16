@@ -57,10 +57,6 @@ li {
   background: #fff;
 }
 
-.backPane.visible {
-  display:block;
-}
-
 .bar-title,
 .content,
 .bar-tab {
@@ -90,6 +86,7 @@ li {
   top:150px;
   text-align: center;
   width: 100%;
+  z-index: 3;
 }
 
 /* Footer menu */
