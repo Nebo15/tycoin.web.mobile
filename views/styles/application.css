@@ -37,7 +37,7 @@ li {
   display:none;
   position:fixed;
   height:100%;
-  width:80%;
+  width:85%;
   left:0%;
   overflow:auto;
   -webkit-transition-property: top, bottom;
