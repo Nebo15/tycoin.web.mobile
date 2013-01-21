@@ -31,6 +31,15 @@ li {
   width: 50%;
 }
 
+/* iOS UI */
+.pull_up {
+  text-align: center;
+  margin: 10px;
+  margin-top: 20px;
+  overflow: hidden;
+  height: 0px;
+}
+
 /* Backpane */
 .backPane {
   z-index:1;
