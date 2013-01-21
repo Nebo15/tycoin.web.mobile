@@ -23,13 +23,19 @@
 
 <script type="text/javascript">
   Navigation.setMenuActivePage('give');
+  var response_cache;
 
   $(document).one('pageLoadSuccess', function(event) {
-    API.request('GET', '/social/facebook_friends')
-      .success(function(response) {
-        event.renderer({users:response.data.result});
-      })
-      .send();
+    if(!response_cache) {
+      API.request('GET', '/social/facebook_friends')
+        .success(function(response) {
+          response_cache = response;
+          event.renderer({users:response.data.result});
+        })
+        .send();
+    } else {
+      event.renderer({users:response_cache.data.result});
+    }
   });
 
   $(document).one('pageRender', function() {
@@ -47,10 +53,8 @@
          Loader.show('Sending coins');
 
          API.request('POST', '/transaction/transfer', {'uid': uid, 'type': coin_type == "big" ? "big" : "usual", message:'transfer'})
-           .success(function(response) {
-             console.log(response);
-             Loader.show('Coins was send');
-             var post_url = "https://www.facebook.com/dialog/feed?" +
+          .success(function(response) {
+            var post_url = "https://www.facebook.com/dialog/feed?" +
                             "to=" + uid + "&" +
                             "app_id=" + Config.fbAppId + "&" +
                             "picture=http://" + Config.host + "/images/" + Page.getParam('coin_type') + "-coin.jpg&" +
@@ -58,7 +62,14 @@
                             "link=http://" + Config.host + "/page/about&" +
                             "description=You%20can%20exchange%20this%20coin%20inTYCoin%20application&" +
                             "redirect_uri=http://" + Config.host + "/transaction/fallback_from_posting";
-             window.location.href=post_url;
+
+            window.location.href = post_url;
+            window.handleOpenURL = function(url) {
+              setTimeout(function() {
+                alert('Coins was sent');
+                Navigation.redirectToDefaultPage();
+              }, 100);
+            };
           })
           .send();
        });
