@@ -59,8 +59,7 @@
                             "app_id=" + Config.fbAppId + "&" +
                             "picture=http://" + Config.host + "/images/" + Page.getParam('coin_type') + "-coin.jpg&" +
                             "name=Thank%20you!&" +
-                            "link=http://" + Config.host + "/page/about&" +
-                            "description=You%20can%20exchange%20this%20coin%20inTYCoin%20application&" +
+                            "link=http://" + Config.host + "/og/coin_" + Page.getParam('coin_type') + ".html" +
                             "redirect_uri=http://" + Config.host + "/transaction/fallback_from_posting";
 
             window.location.href = post_url;
