@@ -13,11 +13,11 @@
     </div>
 
     <div class="coins-holder">
-      <div class="coin-holder">
+      <span class="coin-holder">
         <img src="views/images/usual-coin.jpg" class="coin" type="usual" />
         <br />
         <span class="count">{{balance.usual_coins_to_send}}</span>
-      </div>
+      </span>
 
       {{#if-eq balance.usual_coins_to_send "0"}}
         <div class="text-block no-coins">
@@ -28,11 +28,11 @@
 
       <br style="clear:both;" />
 
-      <div class="coin-holder">
+      <span class="coin-holder">
         <img src="views/images/big-coin.jpg" class="coin" type="big" />
         <br />
         <span class="count">{{balance.purchased_big_coins_count}}</span>
-      </div>
+      </span>
     </div>
   </div>
 </script>
