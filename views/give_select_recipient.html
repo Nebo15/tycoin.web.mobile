@@ -41,31 +41,36 @@
 
   $(document).one('pageRender', function() {
     $('li[uid]').tap(function() {
+      $('li[uid]').each(function() {
+        $(this).children('.button-positive').hide();
+        $(this).children('.chevron').show();
+      });
 
-       $('li[uid]').each(function() {
-         $(this).children('.button-positive').hide();
-         $(this).children('.chevron').show();
-       });
-       $(this).children('.chevron').hide();
-       $(this).children('.button-positive').show().tap(function()
-       {
-         var uid = $(this).parent('li[uid]').attr('uid');
-         var coin_type = Page.getParam('coin_type');
-         Loader.show('Sending coins');
+      $(this).children('.chevron').hide();
 
-         API.request('POST', '/transaction/transfer', {'uid': uid, 'type': coin_type == "big" ? "big" : "usual", message:'transfer'})
+      $(this).children('.button-positive').show().tap(function()
+      {
+        Loader.show('Sending coins');
+        var uid = $(this).parent('li[uid]').attr('uid');
+
+        var data = {
+          'uid':     uid,
+          'type':    Page.getParam('coin_type') == "big" ? "big" : "usual",
+          'message': 'transfer'
+        };
+
+        API.request('POST', '/transaction/transfer', data)
           .success(function(response) {
-            var post_url = "https://www.facebook.com/dialog/feed?" +
-                            "to=" + uid + "&" +
-                            "app_id=" + Config.fbAppId + "&" +
-                            "picture=http://" + Config.host + "/images/" + Page.getParam('coin_type') + "-coin.jpg&" +
-                            "name=Thank%20you!&" +
-                            "link=http://" + Config.host + "/og/coin_" + Page.getParam('coin_type') + ".html" +
-                            "redirect_uri=http://" + Config.host + "/transaction/fallback_from_posting";
+            var ref = window.open("https://www.facebook.com/dialog/feed?" +
+                                   "to=" + uid + "&" +
+                                   "app_id=" + Config.fbAppId + "&" +
+                                   "name=Thank%20you!&" +
+                                   "link=http://" + Config.host + "/og/coin_" + Page.getParam('coin_type') + ".html&" +
+                                   "redirect_uri=http://" + Config.host + "/transaction/fallback_from_posting", '_blank');
 
-            window.location.href = post_url;
             window.handleOpenURL = function(url) {
               setTimeout(function() {
+                ref.close();
                 alert('Coins was sent');
                 Navigation.redirectToDefaultPage();
               }, 100);
