@@ -23,18 +23,19 @@
 
 <script type="text/javascript">
   Navigation.setMenuActivePage('give');
-  var response_cache;
+
+  var friends_response_cache;
 
   $(document).one('pageLoadSuccess', function(event) {
-    if(!response_cache) {
+    if(!friends_response_cache) {
       API.request('GET', '/social/facebook_friends')
         .success(function(response) {
-          response_cache = response;
+          friends_response_cache = response;
           event.renderer({users:response.data.result});
         })
         .send();
     } else {
-      event.renderer({users:response_cache.data.result});
+      event.renderer({users:friends_response_cache.data.result});
     }
   });
 
