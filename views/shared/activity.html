@@ -4,9 +4,9 @@
 
     {{#if-eq type "transfer"}}
       {{#if-eq subtype "+"}}
-        recieved from <a href="http://www.facebook.com/profile.php?id={{sender.facebook_uid}}" target="_blank" rel="external">{{sender.name}}</a>
+        recieved from <a href="fb://profile/{{sender.facebook_uid}}" target="_system">{{sender.name}}</a>
       {{else}}
-        sent to <a href="http://www.facebook.com/profile.php?id={{recipient.facebook_uid}}" target="_blank" rel="external">{{recipient.name}}</a>
+        sent to <a href="fb://profile/{{recipient.facebook_uid}}" target="_system">{{recipient.name}}</a>
       {{/if-eq}}
     {{/if-eq}}
 
