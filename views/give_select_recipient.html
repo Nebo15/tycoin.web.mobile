@@ -14,7 +14,6 @@
     <li uid="{{uid}}">
       <img src="{{image_50}}" style="width: 40px; vertical-align: middle;"/>
       {{name}}
-      <a class="button-positive" style="display:none">Confirm</a>
       <span class="chevron"></span>
     </li>
     {{/users}}
@@ -41,15 +40,7 @@
 
   $(document).one('pageRender', function() {
     $('li[uid]').tap(function() {
-      $('li[uid]').each(function() {
-        $(this).children('.button-positive').hide();
-        $(this).children('.chevron').show();
-      });
-
-      $(this).children('.chevron').hide();
-
-      $(this).children('.button-positive').show().tap(function()
-      {
+      if(confirm('Send to ' + $(this).text().trim())) {
         Loader.show('Sending coins');
         var uid = $(this).parent('li[uid]').attr('uid');
 
@@ -66,7 +57,7 @@
                                    "app_id=" + Config.fbAppId + "&" +
                                    "name=Thank%20you!&" +
                                    "link=http://" + Config.host + "/og/coin_" + Page.getParam('coin_type') + ".html&" +
-                                   "redirect_uri=http://" + Config.host + "/transaction/fallback_from_posting", '_blank');
+                                   "redirect_uri=http://" + Config.host + "/transaction/fallback_from_posting", '_blank', 'location=no');
 
             window.handleOpenURL = function(url) {
               setTimeout(function() {
@@ -77,7 +68,7 @@
             };
           })
           .send();
-       });
+       }
     });
   });
 </script>
