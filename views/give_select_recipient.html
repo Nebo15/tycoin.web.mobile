@@ -52,12 +52,10 @@
 
         API.request('POST', '/transaction/transfer', data)
           .success(function(response) {
-            var ref = window.open("https://www.facebook.com/dialog/feed?" +
-                                   "to=" + uid + "&" +
-                                   "app_id=" + Config.fbAppId + "&" +
-                                   "name=Thank%20you!&" +
+            var ref = window.open("https://www.facebook.com/dialog/feed?to=" + uid + "&app_id=" + Config.fbAppId + "&name=Thank%20you!&" +
                                    "link=http://" + Config.host + "/og/coin_" + Page.getParam('coin_type') + ".html&" +
-                                   "redirect_uri=http://" + Config.host + "/transaction/fallback_from_posting", '_blank', 'location=no');
+                                   "redirect_uri=http://" + Config.host + "/transaction/fallback_from_posting",
+                                  '_blank', 'location=no');
 
             window.handleOpenURL = function(url) {
               setTimeout(function() {
