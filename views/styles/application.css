@@ -12,8 +12,39 @@ li {
   position: relative;
 }
 
-.compact li {
+.friendslist {
+  list-style: none;
+  position: relative;
+}
+
+.friendslist li {
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
   padding: 5px 60px 5px 10px;
+}
+
+.friendslist li:last-child {
+  border-bottom: 0;
+}
+
+.friendslist .img {
+  overflow: hidden;
+  height: 40px;
+  width: 40px;
+  vertical-align: middle;
+  background-position: center;
+  background-size: cover;
+}
+
+.friendslist .username {
+  position: absolute;
+  top: 15px;
+  left: 60px;
+}
+
+.friendslist .chevron {
+  position: absolute;
+  top: 15px;
+  right: 10px;
 }
 
 /*ul, li, .content-padded {
@@ -172,10 +203,6 @@ li {
 .right {
   float: right;
   padding-right: 15px;
-}
-
-.no-coins {
-  margin-top: 30px;
 }
 
 .disabled {

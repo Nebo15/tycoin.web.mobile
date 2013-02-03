@@ -8,12 +8,11 @@
 </script>
 
 <script id="content_template" type="text/x-handlebars-template">
-  <ul class="list compact">
-    <li class="list-divider">Facebook friends</li>
+  <ul class="friendslist">
     {{#users}}
     <li uid="{{uid}}">
-      <img src="{{image_50}}" style="width: 40px; vertical-align: middle;"/>
-      {{name}}
+      <div class="img" style="background-image: url('{{image_50}}');"></div>
+      <span class="username">{{name}}</span>
       <span class="chevron"></span>
     </li>
     {{/users}}
@@ -42,7 +41,7 @@
     $('li[uid]').tap(function() {
       if(confirm('Send to ' + $(this).text().trim())) {
         Loader.show('Sending coins');
-        var uid = $(this).parent('li[uid]').attr('uid');
+        var uid = $(this).attr('uid');
 
         var data = {
           'uid':     uid,
@@ -52,8 +51,12 @@
 
         API.request('POST', '/transaction/transfer', data)
           .success(function(response) {
-            var ref = window.open("https://www.facebook.com/dialog/feed?to=" + uid + "&app_id=" + Config.fbAppId + "&name=Thank%20you!&" +
-                                   "link=http://" + Config.host + "/og/coin_" + Page.getParam('coin_type') + ".html&" +
+            var ref = window.open("https://www.facebook.com/dialog/feed" +
+                                   "?to=" + uid +
+                                   "&app_id=" + Config.fbAppId +
+                                   "&name=Thank%20you!&" +
+                                   "link=http://" + Config.host + "/og/coin_" + Page.getParam('coin_type') + ".html" +
+                                   "&message=:message&" +
                                    "redirect_uri=http://" + Config.host + "/transaction/fallback_from_posting",
                                   '_blank', 'location=no');
 
